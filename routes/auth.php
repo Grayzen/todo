@@ -33,12 +33,6 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.update');
-
-    Route::get('google/redirect', [SocialiteController::class, 'googleRedirect'])
-                ->name('google.redirect');
-
-    Route::get('google/callback', [SocialiteController::class, 'googleCallback'])
-                ->name('google.callback');
 });
 
 Route::middleware('auth')->group(function () {
@@ -61,3 +55,9 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
 });
+
+Route::get('google/redirect', [SocialiteController::class, 'googleRedirect'])
+->name('google.redirect');
+
+Route::get('google/callback', [SocialiteController::class, 'googleCallback'])
+->name('google.callback');
