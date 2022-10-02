@@ -7,11 +7,9 @@ use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Auth\VerifyEmailController;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Laravel\Socialite\Facades\Socialite;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -36,25 +34,11 @@ Route::middleware('guest')->group(function () {
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.update');
 
-    Route::get('google/redirect', function () {
-        return Socialite::driver('google')->redirect();
-    })->name('google.redirect');
+    Route::get('google/redirect', [SocialiteController::class, 'googleRedirect'])
+                ->name('google.redirect');
 
-    Route::get('google/callback', function () {
-        $googleUser = Socialite::driver('google')->user();
-
-        $user = User::updateOrCreate([
-            'email' => $googleUser->email,
-        ], [
-            'email' => $googleUser->email,
-            'provider_id' => $googleUser->id,
-            'avatar' => $googleUser->avatar,
-        ]);
-
-        Auth::login($user);
-
-        return redirect('/dashboard');
-    })->name('google.callback');
+    Route::get('google/callback', [SocialiteController::class, 'googleCallback'])
+                ->name('google.callback');
 });
 
 Route::middleware('auth')->group(function () {
