@@ -9,7 +9,6 @@ import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 const form = useForm({
     email: '',
     password: '',
-    terms: false,
 });
 
 const submit = () => {
@@ -62,7 +61,8 @@ const submit = () => {
 
                         <div class="mt-4">
                             <label class="block mb-2 text-sm font-medium text-gray-600 " for="LoggingEmailAddress">Email Address</label>
-                            <input id="LoggingEmailAddress" v-model="form.email" class="block w-full px-4 py-2 text-gray-700 border rounded-md bg-gray-200  focus:border-gray-800 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-gray-700" type="email" :message="form.errors.email" />
+                            <input id="LoggingEmailAddress" v-model="form.email" class="block w-full px-4 py-2 text-gray-700 border rounded-md bg-gray-200  focus:border-gray-800 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-gray-700" type="email" />
+                            <InputError :message="form.errors.email" class="mt-2" />
                         </div>
 
                         <div class="mt-4">
@@ -70,7 +70,8 @@ const submit = () => {
                                 <label class="block mb-2 text-sm font-medium text-gray-600" for="loggingPassword">Password</label>
                             </div>
 
-                            <input id="loggingPassword" v-model="form.password" class="block w-full px-4 py-2 text-gray-700 border rounded-md bg-gray-200  focus:border-gray-800 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-gray-700" type="password" :message="form.errors.password" />
+                            <input id="loggingPassword" v-model="form.password" class="block w-full px-4 py-2 text-gray-700 border rounded-md bg-gray-200  focus:border-gray-800 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-gray-700" type="password" autocomplete="current-password" />
+                            <InputError :message="form.errors.password" class="mt-2" />
                         </div>
 
                         <div class="mt-8">
